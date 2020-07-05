@@ -39,12 +39,8 @@ fi
 
 #------------------------------------------------------------------------------------------------
 
-
-#------------------------------------------------------------------------------------------------------------------
-
-
-while true
-do
+if [ "$employ" == "Present" ]
+then
 echo "1.Wages of the employ who does full time"
 echo "2.Wages of the employ who does part time"
 echo "3.Exit"
@@ -69,7 +65,6 @@ case $ch in
 	
 	if [ "$employ" == "Present" ]
 	then	
-	read -p "Enter the name of the employ : " name
 	partworktime=$(($worktime/2))
 	parttimeemploywage=$(($Employwageperhour*$partworktime))
 	echo "Wage of $name for part time is : "$parttimeemploywage
@@ -79,7 +74,7 @@ case $ch in
 ;;
 
 "3")
-exit
+break
 ;;
 
 *) 
@@ -87,4 +82,19 @@ echo invalid choice
 ;;
 
 esac
-done
+else
+wage=0
+echo "Wage of $name is : "$wage
+fi
+
+
+
+
+#---------------------------------------------------------------------------
+
+
+
+
+WorkingDaysofMonth=20
+wagesofamonth=$(($dailyemploywage*$WorkingDaysofMonth))
+echo "Wages Per Month of $name is : " $wagesofamonth
