@@ -2,6 +2,15 @@
 #!/bin/bash -x
 echo "welcome to Employee Wage Computation"
 
+#------------------------------------------------------------------------------------------
+
+workhours ()
+{
+read -p "Enter the hours you work : " hours
+echo $hours
+}
+
+#----------------------------------------------------------------------------
 Attendence=$(( $RANDOM % 2 + 1 ))
 if [ $Attendence -eq 1 ]
 then
@@ -11,7 +20,7 @@ else
 employ="Absent"
 echo $employ
 fi
-
+#------------------------------------------------------------------------------------------
 if [ "$employ" == "Present" ]
 then
 Employwageperhour=20
@@ -23,7 +32,7 @@ dailyemploywage=0
 echo $dailyemploywage
 fi
 
-
+#----------------------------------------------------------------------------------------------
 if [ "$employ" == "Present" ]
 then
 Employwageperhour=20
@@ -124,3 +133,45 @@ totalwages=$((($hoursleft * $Employwageperhours) + $wages))
 echo "Total wages of $newname is : $totalwages "
 echo "The days and hours work done is : $days days and $hoursleft hours "
 
+#-------------------------------------------------------------------------------------
+
+dailyemploywage()
+{
+Employwageperhour=20
+dailyemploywage=$(($Employwageperhour * $hourss))
+}
+parttimeemploywage()
+{
+Employwageperhour=20
+partime=$(($hourss/2))
+parttimeemploywage=$(($Employwageperhour * $partime))
+}
+checkifAvailable() 
+{
+person=$(($RANDOM%3+1))
+if [ $person -eq 1 ]
+then
+dailyemploywage
+employ=$dailyemploywage
+elif [ $person -eq 2 ]
+then
+parttimeemploywage
+employ=$parttimeemploywage
+elif [ $person -eq 3 ]
+then
+employ=0
+fi
+}
+
+totalwage=0
+read -p "Enter the number of days you want to work  : " days
+read -p "Enter how much hours you want to work in $days days: " hourss
+echo $days
+for((i=0; i<=20; i++))
+do
+checkifAvailable
+day[$i]=$employ
+totalwage=$(($totalwage+${day[$i]}))
+echo day $i " = " ${day[$i]} " : " $totalwage
+done
+echo "Total wages of $name in $days days of work is : "$totalwage
